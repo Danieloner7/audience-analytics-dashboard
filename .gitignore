@@ -1,0 +1,7 @@
+# API Credentials & Secrets
+*.json
+.env
+
+# OS files important
+.DS_Store
+Thumbs.db
