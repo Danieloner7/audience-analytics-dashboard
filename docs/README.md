@@ -9,3 +9,4 @@ A centralized multi-platform audience analytics dashboard for a mid-sized media 
 ## Branches
 - main: stable production-ready configuration
 - development: active work branch
+## Version: v1.0.0-release
