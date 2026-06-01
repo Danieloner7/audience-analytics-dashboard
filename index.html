@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audience Analytics Dashboard — MSIT Capstone</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f9fc; color: #263238; }
+    header { background: #0D2B55; color: white; padding: 3rem 2rem; text-align: center; }
+    header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    header p { font-size: 1.1rem; color: #9EC5E8; }
+    .badge { display: inline-block; background: #028090; color: white;
+             padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;
+             margin: 0.3rem; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
+    .card { background: white; border-radius: 8px; padding: 1.5rem;
+            margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .card h2 { color: #0D2B55; margin-bottom: 1rem; font-size: 1.3rem;
+               border-left: 4px solid #028090; padding-left: 0.75rem; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .metric { background: #0D2B55; color: white; border-radius: 8px;
+              padding: 1.2rem; text-align: center; }
+    .metric .num { font-size: 2.2rem; font-weight: bold; color: #9EC5E8; }
+    .metric .label { font-size: 0.85rem; margin-top: 0.3rem; }
+    .links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn { display: inline-block; padding: 0.6rem 1.4rem; border-radius: 6px;
+           text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+    .btn-primary { background: #028090; color: white; }
+    .btn-secondary { background: #0D2B55; color: white; }
+    .btn-outline { border: 2px solid #028090; color: #028090; background: white; }
+    ul li { margin-bottom: 0.5rem; padding-left: 0.5rem; }
+    footer { text-align: center; padding: 2rem; color: #607D8B; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Audience Analytics Dashboard</h1>
+  <p>A Centralized Multi-Platform Audience Performance System</p>
+  <div style="margin-top:1rem;">
+    <span class="badge">MSIT 5910 Capstone</span>
+    <span class="badge">University of the People</span>
+    <span class="badge">AY2026-T4</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Quick links -->
+  <div class="card">
+    <h2>Portfolio Links</h2>
+    <div class="links">
+      <a class="btn btn-primary" href="[YOUR YOUTUBE DEMO LINK]" target="_blank">▶ Watch Demo Video</a>
+      <a class="btn btn-secondary" href="[YOUR GITHUB REPO LINK]" target="_blank">⚙ View Repository</a>
+      <a class="btn btn-outline" href="[YOUR TECHNICAL REPORT PDF LINK]" target="_blank">📄 Technical Report</a>
+      <a class="btn btn-outline" href="[YOUR LINKEDIN LINK]" target="_blank">🔗 LinkedIn Profile</a>
+    </div>
+  </div>
+
+  <!-- Problem & Solution -->
+  <div class="card">
+    <h2>The Problem</h2>
+    <p>A mid-sized media organization operating radio, television, and online publication channels
+    collected audience data from five disconnected platforms — broadcast ratings, Google Analytics,
+    Facebook, Instagram, and YouTube. Staff spent 2–4 hours weekly manually compiling reports,
+    leading to delayed decisions, inconsistent metrics, and weak advertiser confidence.</p>
+  </div>
+
+  <div class="card">
+    <h2>The Solution</h2>
+    <p>A centralized Audience Analytics Dashboard built with Google Looker Studio, integrating
+    live data from all five platforms via API connectors. The system automatically computes
+    five key performance indicators, supports dynamic filtering by date range and content type,
+    and generates professional PDF advertiser reports — all at zero licensing cost.</p>
+  </div>
+
+  <!-- Key metrics -->
+  <div class="card">
+    <h2>Key Results</h2>
+    <div class="metrics">
+      <div class="metric"><div class="num">82</div><div class="label">SUS Usability Score (Excellent)</div></div>
+      <div class="metric"><div class="num">1.8s</div><div class="label">Dashboard Load Time (target: 3s)</div></div>
+      <div class="metric"><div class="num">$0</div><div class="label">Total Licensing Cost</div></div>
+      <div class="metric"><div class="num">12</div><div class="label">Test Cases — All Passed</div></div>
+      <div class="metric"><div class="num">5</div><div class="label">Platforms Integrated</div></div>
+      <div class="metric"><div class="num">100%</div><div class="label">KPI Calculation Accuracy</div></div>
+    </div>
+  </div>
+
+  <!-- Tech stack -->
+  <div class="card">
+    <h2>Technology Stack</h2>
+    <ul>
+      <li><strong>Google Looker Studio</strong> — Dashboard development platform (no-code, cloud-hosted)</li>
+      <li><strong>Google Analytics GA4</strong> — Web traffic data via OAuth 2.0</li>
+      <li><strong>Supermetrics</strong> — Facebook & Instagram Insights connector</li>
+      <li><strong>YouTube Analytics</strong> — Native Looker Studio connector</li>
+      <li><strong>GitHub</strong> — Version control with semantic versioning (v0.1.0 → v1.0.0)</li>
+      <li><strong>Google Cloud Secret Manager</strong> — Secure API credential storage</li>
+    </ul>
+  </div>
+
+  <!-- Deliverables -->
+  <div class="card">
+    <h2>Project Deliverables</h2>
+    <ul>
+      <li>Live multi-platform dashboard with real organizational data</li>
+      <li>10,000+ word technical report (Chapters 1–6, APA referenced)</li>
+      <li>System architecture diagram and full module specifications</li>
+      <li>12-case test suite documentation with issue log</li>
+      <li>Post-deployment maintenance plan and risk register</li>
+      <li>Data ethics statement and user manual</li>
+      <li>GitHub repository with full version history and four release tags</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>[Student Name] &nbsp;|&nbsp; MSIT 5910 Capstone &nbsp;|&nbsp; University of the People &nbsp;|&nbsp; 2026</p>
+</footer>
+
+</body>
+</html>
