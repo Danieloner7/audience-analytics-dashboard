@@ -3,122 +3,410 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Audience Analytics Dashboard — MSIT Capstone</title>
+  <title>Audience Analytics Dashboard — MSIT Capstone Portfolio</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f9fc; color: #263238; }
-    header { background: #0D2B55; color: white; padding: 3rem 2rem; text-align: center; }
-    header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
-    header p { font-size: 1.1rem; color: #9EC5E8; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f9fc; color: #263238; line-height: 1.6; }
+
+    /* ── Header ── */
+    header { background: #0D2B55; color: white; padding: 3.5rem 2rem 2.5rem; text-align: center; }
+    header h1 { font-size: 2.4rem; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+    header .subtitle { font-size: 1.1rem; color: #9EC5E8; margin-bottom: 1.2rem; }
     .badge { display: inline-block; background: #028090; color: white;
-             padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;
-             margin: 0.3rem; }
-    .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
-    .card { background: white; border-radius: 8px; padding: 1.5rem;
-            margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-    .card h2 { color: #0D2B55; margin-bottom: 1rem; font-size: 1.3rem;
-               border-left: 4px solid #028090; padding-left: 0.75rem; }
-    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+             padding: 0.3rem 0.9rem; border-radius: 20px; font-size: 0.82rem; margin: 0.25rem; }
+    .badge.amber { background: #E65100; }
+
+    /* ── Layout ── */
+    .container { max-width: 960px; margin: 2rem auto; padding: 0 1.5rem; }
+
+    /* ── Cards ── */
+    .card { background: white; border-radius: 10px; padding: 1.8rem;
+            margin-bottom: 1.8rem; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .card h2 { color: #0D2B55; margin-bottom: 1.2rem; font-size: 1.25rem;
+               border-left: 4px solid #028090; padding-left: 0.8rem; }
+    .card p { color: #455A64; margin-bottom: 0.8rem; }
+    .card ul { padding-left: 1.2rem; color: #455A64; }
+    .card ul li { margin-bottom: 0.5rem; }
+
+    /* ── Quick links ── */
+    .links { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .btn { display: inline-block; padding: 0.55rem 1.3rem; border-radius: 6px;
+           text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: opacity 0.2s; }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary  { background: #028090; color: white; }
+    .btn-dark     { background: #0D2B55; color: white; }
+    .btn-outline  { border: 2px solid #0D2B55; color: #0D2B55; background: white; }
+    .btn-outline:hover { background: #0D2B55; color: white; }
+
+    /* ── Metrics grid ── */
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.5rem; }
     .metric { background: #0D2B55; color: white; border-radius: 8px;
-              padding: 1.2rem; text-align: center; }
-    .metric .num { font-size: 2.2rem; font-weight: bold; color: #9EC5E8; }
-    .metric .label { font-size: 0.85rem; margin-top: 0.3rem; }
-    .links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
-    .btn { display: inline-block; padding: 0.6rem 1.4rem; border-radius: 6px;
-           text-decoration: none; font-weight: bold; font-size: 0.95rem; }
-    .btn-primary { background: #028090; color: white; }
-    .btn-secondary { background: #0D2B55; color: white; }
-    .btn-outline { border: 2px solid #028090; color: #028090; background: white; }
-    ul li { margin-bottom: 0.5rem; padding-left: 0.5rem; }
-    footer { text-align: center; padding: 2rem; color: #607D8B; font-size: 0.9rem; }
+              padding: 1.3rem 1rem; text-align: center; }
+    .metric .num  { font-size: 2.2rem; font-weight: bold; color: #9EC5E8; line-height: 1.1; }
+    .metric .lbl  { font-size: 0.82rem; margin-top: 0.4rem; color: #B8D4EC; }
+    .metric.pass  { background: #1B5E20; }
+    .metric.pass .num { color: #A5D6A7; }
+
+    /* ── Evaluation table ── */
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-top: 0.5rem; }
+    thead tr { background: #0D2B55; color: white; }
+    thead th { padding: 0.7rem 0.9rem; text-align: left; font-weight: 600; }
+    tbody tr:nth-child(even) { background: #F0F7FF; }
+    tbody td { padding: 0.65rem 0.9rem; color: #37474F; border-bottom: 1px solid #E0EAF4; }
+    .pass-cell { color: #2E7D32; font-weight: bold; }
+    .bar-wrap { background: #E0EAF4; border-radius: 4px; height: 10px; width: 100%; margin-top: 4px; }
+    .bar-fill { background: #028090; height: 10px; border-radius: 4px; }
+
+    /* ── Architecture diagram ── */
+    .arch { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-top: 1rem; }
+    .arch-layer { border-radius: 8px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
+    .arch-header { padding: 0.6rem 0.5rem; text-align: center; font-size: 0.75rem;
+                   font-weight: 700; color: white; letter-spacing: 0.5px; text-transform: uppercase; }
+    .arch-items  { background: white; padding: 0.5rem; }
+    .arch-item   { background: #E8F4FD; border: 1px solid #C9DFF0; border-radius: 5px;
+                   padding: 0.4rem 0.5rem; margin-bottom: 0.4rem; font-size: 0.8rem;
+                   color: #263238; text-align: center; }
+    .arch-arrow  { display: flex; align-items: center; justify-content: center;
+                   font-size: 1.4rem; color: #607D8B; padding-top: 1.5rem; }
+    .arch-note   { text-align: center; font-size: 0.8rem; color: #607D8B;
+                   font-style: italic; margin-top: 0.8rem; }
+
+    /* ── Documents grid ── */
+    .docs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 0.5rem; }
+    .doc-item { display: flex; align-items: flex-start; gap: 0.8rem;
+                background: #F5F9FC; border: 1px solid #D0E4F0; border-radius: 8px; padding: 1rem; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
+    .doc-item:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
+    .doc-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .doc-title { font-weight: 700; font-size: 0.92rem; color: #0D2B55; }
+    .doc-desc  { font-size: 0.8rem; color: #607D8B; margin-top: 0.2rem; }
+
+    /* ── Tech stack pills ── */
+    .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+    .pill  { background: #E8F4FD; border: 1px solid #C9DFF0; color: #0D2B55;
+             padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600; }
+
+    /* ── Footer ── */
+    footer { text-align: center; padding: 2.5rem 1rem; color: #90A4AE; font-size: 0.88rem; background: #0D2B55; color: #6B90B8; margin-top: 1rem; }
+
+    @media (max-width: 640px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .arch { grid-template-columns: repeat(2, 1fr); }
+      .docs-grid { grid-template-columns: 1fr; }
+      .arch-arrow { display: none; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ════════════════════ HEADER ════════════════════ -->
 <header>
   <h1>Audience Analytics Dashboard</h1>
-  <p>A Centralized Multi-Platform Audience Performance System</p>
-  <div style="margin-top:1rem;">
+  <p class="subtitle">A Centralized Multi-Platform Audience Performance System for a Mid-Sized Media Organization</p>
+  <div>
     <span class="badge">MSIT 5910 Capstone</span>
     <span class="badge">University of the People</span>
     <span class="badge">AY2026-T4</span>
+    <span class="badge amber">May 2026</span>
   </div>
 </header>
 
 <div class="container">
 
-  <!-- Quick links -->
+  <!-- ════════════════════ PORTFOLIO LINKS ════════════════════ -->
   <div class="card">
     <h2>Portfolio Links</h2>
     <div class="links">
-      <a class="btn btn-primary" href="#" target="_blank">▶ Demo Video will be available soon</a>
-      <a class="btn btn-secondary" href="https://github.com/Danieloner7/audience-analytics-dashboard" target="_blank">⚙ View Repository</a>
-      <a class="btn btn-outline" href="#" target="_blank">📄 Technical Report will be published soon</a>
-      <a class="btn btn-outline" href="https://www.linkedin.com/in/danielpierre72/" target="_blank">🔗 LinkedIn Profile</a>
+      <a class="btn btn-primary" href="#" target="_blank">▶&nbsp; Demo Video will be available soon</a>
+      <a class="btn btn-dark"    href="https://github.com/Danieloner7/audience-analytics-dashboard"  target="_blank">⚙&nbsp; View Repository</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/danielpierre72/"     target="_blank">🔗&nbsp; LinkedIn Profile</a>
     </div>
   </div>
 
-  <!-- Problem & Solution -->
+  <!-- ════════════════════ PROBLEM & SOLUTION ════════════════════ -->
   <div class="card">
     <h2>The Problem</h2>
     <p>A mid-sized media organization operating radio, television, and online publication channels
-    collected audience data from five disconnected platforms — broadcast ratings, Google Analytics,
-    Facebook, Instagram, and YouTube. Staff spent 2–4 hours weekly manually compiling reports,
-    leading to delayed decisions, inconsistent metrics, and weak advertiser confidence.</p>
+    collected audience data from <strong>five completely disconnected platforms</strong> — broadcast
+    ratings, Google Analytics, Facebook, Instagram, and YouTube. Staff spent 2–4 hours every week
+    manually compiling reports, leading to delayed editorial decisions, inconsistent metrics,
+    and weak advertiser confidence.</p>
   </div>
 
   <div class="card">
     <h2>The Solution</h2>
-    <p>A centralized Audience Analytics Dashboard built with Google Looker Studio, integrating
-    live data from all five platforms via API connectors. The system automatically computes
-    five key performance indicators, supports dynamic filtering by date range and content type,
-    and generates professional PDF advertiser reports — all at zero licensing cost.</p>
+    <p>A centralized Audience Analytics Dashboard built with Google Looker Studio, integrating live
+    data from all five platforms via API connectors. The system automatically computes five key
+    performance indicators, supports dynamic date range and platform filtering, enforces role-based
+    access control, and generates professional PDF advertiser reports — all at <strong>zero licensing cost</strong>.</p>
   </div>
 
-  <!-- Key metrics -->
+  <!-- ════════════════════ SYSTEM ARCHITECTURE ════════════════════ -->
+  <div class="card">
+    <h2>System Architecture</h2>
+    <p>The system follows a <strong>four-layer pipeline architecture</strong>. Data flows unidirectionally
+    from sources through the connector and processing layers to the access-controlled dashboard UI.
+    Each layer is independently modifiable — adding a new platform connector requires no changes to existing modules.</p>
+
+    <div style="display:grid; grid-template-columns: 1fr 0.15fr 1fr 0.15fr 1fr 0.15fr 1fr; gap:0.3rem; margin-top:1rem; align-items:start;">
+
+      <!-- Layer 1 -->
+      <div class="arch-layer">
+        <div class="arch-header" style="background:#028090;">Data Sources</div>
+        <div class="arch-items">
+          <div class="arch-item">GA4 Web Traffic</div>
+          <div class="arch-item">Facebook Insights</div>
+          <div class="arch-item">Instagram Insights</div>
+          <div class="arch-item">YouTube Analytics</div>
+          <div class="arch-item">Broadcast CSV</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <!-- Layer 2 -->
+      <div class="arch-layer">
+        <div class="arch-header" style="background:#1565C0;">Connector Module</div>
+        <div class="arch-items">
+          <div class="arch-item">OAuth 2.0 Auth</div>
+          <div class="arch-item">Field Whitelist</div>
+          <div class="arch-item">Field Normalization</div>
+          <div class="arch-item">GDPR Filter</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <!-- Layer 3 -->
+      <div class="arch-layer">
+        <div class="arch-header" style="background:#5E35B1;">KPI Calculator + UI</div>
+        <div class="arch-items">
+          <div class="arch-item">Engagement Rate</div>
+          <div class="arch-item">Reach Growth</div>
+          <div class="arch-item">5 KPI Scorecards</div>
+          <div class="arch-item">Date &amp; Type Filters</div>
+          <div class="arch-item">Geo Map + Charts</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <!-- Layer 4 -->
+      <div class="arch-layer">
+        <div class="arch-header" style="background:#E65100;">Access Control</div>
+        <div class="arch-items">
+          <div class="arch-item">Google Workspace</div>
+          <div class="arch-item">Viewer Roles</div>
+          <div class="arch-item">Editor Roles</div>
+          <div class="arch-item">Restricted Access</div>
+        </div>
+      </div>
+
+    </div>
+    <p class="arch-note">Data flows left → right through each layer. No back-channel communication between layers.</p>
+  </div>
+
+  <!-- ════════════════════ KEY METRICS ════════════════════ -->
   <div class="card">
     <h2>Key Results</h2>
     <div class="metrics">
-      <div class="metric"><div class="num">82</div><div class="label">SUS Usability Score (Excellent)</div></div>
-      <div class="metric"><div class="num">1.8s</div><div class="label">Dashboard Load Time (target: 3s)</div></div>
-      <div class="metric"><div class="num">$0</div><div class="label">Total Licensing Cost</div></div>
-      <div class="metric"><div class="num">12</div><div class="label">Test Cases — All Passed</div></div>
-      <div class="metric"><div class="num">5</div><div class="label">Platforms Integrated</div></div>
-      <div class="metric"><div class="num">100%</div><div class="label">KPI Calculation Accuracy</div></div>
+      <div class="metric"><div class="num">82</div><div class="lbl">SUS Usability Score — Excellent (target &gt; 70)</div></div>
+      <div class="metric"><div class="num">1.8s</div><div class="lbl">Dashboard Load Time (target: under 3s)</div></div>
+      <div class="metric pass"><div class="num">12/12</div><div class="lbl">Test Cases Passed — All Levels</div></div>
+      <div class="metric"><div class="num">100%</div><div class="lbl">KPI Calculation Accuracy — Verified</div></div>
+      <div class="metric"><div class="num">5</div><div class="lbl">Platforms Integrated — Live Data</div></div>
+      <div class="metric pass"><div class="num">$0</div><div class="lbl">Total Licensing Cost</div></div>
     </div>
   </div>
 
-  <!-- Tech stack -->
+  <!-- ════════════════════ EVALUATION RESULTS TABLE ════════════════════ -->
+  <div class="card">
+    <h2>Evaluation Results</h2>
+    <p>All six performance metrics — four quantitative and two qualitative — met or exceeded their defined targets.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Type</th>
+          <th>Target</th>
+          <th>Measured</th>
+          <th>Performance</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dashboard Load Time</strong></td>
+          <td>Quantitative</td>
+          <td>&lt; 3.0s</td>
+          <td>1.8s</td>
+          <td>
+            <div class="bar-wrap"><div class="bar-fill" style="width:40%"></div></div>
+            <span style="font-size:0.78rem;color:#607D8B;">40% of max target</span>
+          </td>
+          <td class="pass-cell">✓ Pass</td>
+        </tr>
+        <tr>
+          <td><strong>Data Refresh Latency</strong></td>
+          <td>Quantitative</td>
+          <td>&lt; 5.0s</td>
+          <td>3.2s</td>
+          <td>
+            <div class="bar-wrap"><div class="bar-fill" style="width:64%"></div></div>
+            <span style="font-size:0.78rem;color:#607D8B;">64% of max target</span>
+          </td>
+          <td class="pass-cell">✓ Pass</td>
+        </tr>
+        <tr>
+          <td><strong>Filter Response Time</strong></td>
+          <td>Quantitative</td>
+          <td>&lt; 2.0s</td>
+          <td>0.9s</td>
+          <td>
+            <div class="bar-wrap"><div class="bar-fill" style="width:45%"></div></div>
+            <span style="font-size:0.78rem;color:#607D8B;">45% of max target</span>
+          </td>
+          <td class="pass-cell">✓ Pass</td>
+        </tr>
+        <tr>
+          <td><strong>KPI Calculation Accuracy</strong></td>
+          <td>Quantitative</td>
+          <td>100%</td>
+          <td>100%</td>
+          <td>
+            <div class="bar-wrap"><div class="bar-fill" style="width:100%;background:#2E7D32;"></div></div>
+            <span style="font-size:0.78rem;color:#607D8B;">Exact target achieved</span>
+          </td>
+          <td class="pass-cell">✓ Pass</td>
+        </tr>
+        <tr>
+          <td><strong>SUS Usability Score</strong></td>
+          <td>Qualitative</td>
+          <td>&gt; 70 / 100</td>
+          <td>82 / 100</td>
+          <td>
+            <div class="bar-wrap"><div class="bar-fill" style="width:82%;background:#2E7D32;"></div></div>
+            <span style="font-size:0.78rem;color:#607D8B;">Excellent band (&gt; 80)</span>
+          </td>
+          <td class="pass-cell">✓ Excellent</td>
+        </tr>
+        <tr>
+          <td><strong>Report Clarity</strong></td>
+          <td>Qualitative</td>
+          <td>Professional</td>
+          <td>Confirmed</td>
+          <td>
+            <div class="bar-wrap"><div class="bar-fill" style="width:100%;background:#2E7D32;"></div></div>
+            <span style="font-size:0.78rem;color:#607D8B;">Confirmed by 3 stakeholders</span>
+          </td>
+          <td class="pass-cell">✓ Pass</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ════════════════════ PROJECT DOCUMENTS ════════════════════ -->
+  <div class="card">
+    <h2>Project Documents</h2>
+    <p>All deliverables are publicly available in the GitHub repository. Click any document to view or download.</p>
+    <div class="docs-grid">
+
+      <a class="doc-item" href="[LINK TO TECHNICAL REPORT PDF IN /docs FOLDER]" target="_blank">
+        <div class="doc-icon">📄</div>
+        <div>
+          <div class="doc-title">Final Technical Report</div>
+          <div class="doc-desc">10,000+ word academic report — Chapters 1–6, APA cited, 27 references</div>
+        </div>
+      </a>
+
+      <a class="doc-item" href="[LINK TO ARCHITECTURE DIAGRAM IN /design FOLDER]" target="_blank">
+        <div class="doc-icon">🏗️</div>
+        <div>
+          <div class="doc-title">System Architecture Diagram</div>
+          <div class="doc-desc">Four-layer pipeline diagram with all modules and data flow</div>
+        </div>
+      </a>
+
+      <a class="doc-item" href="[LINK TO CAPSTONE PROPOSAL PDF IN /docs FOLDER]" target="_blank">
+        <div class="doc-icon">📋</div>
+        <div>
+          <div class="doc-title">Capstone Proposal & Planning</div>
+          <div class="doc-desc">Problem statement, SMART objectives, Gantt chart, feasibility checklist</div>
+        </div>
+      </a>
+
+      <a class="doc-item" href="[LINK TO TEST REPORT PDF IN /docs FOLDER]" target="_blank">
+        <div class="doc-icon">🧪</div>
+        <div>
+          <div class="doc-title">Testing & Evaluation Report</div>
+          <div class="doc-desc">12 test cases, issue log, performance metrics, SUS results</div>
+        </div>
+      </a>
+
+      <a class="doc-item" href="[LINK TO MAINTENANCE PLAN PDF IN /docs FOLDER]" target="_blank">
+        <div class="doc-icon">🔧</div>
+        <div>
+          <div class="doc-title">Maintenance Plan</div>
+          <div class="doc-desc">4-type maintenance schedule, risk register, version roadmap</div>
+        </div>
+      </a>
+
+      <a class="doc-item" href="[LINK TO DATA ETHICS STATEMENT IN /docs FOLDER]" target="_blank">
+        <div class="doc-icon">⚖️</div>
+        <div>
+          <div class="doc-title">Data Ethics Statement</div>
+          <div class="doc-desc">GDPR-aligned governance guidelines for responsible dashboard use</div>
+        </div>
+      </a>
+
+      <a class="doc-item" href="[LINK TO PRESENTATION PDF IN /docs FOLDER]" target="_blank">
+        <div class="doc-icon">🎤</div>
+        <div>
+          <div class="doc-title">Final Presentation Slides</div>
+          <div class="doc-desc">15-slide PDF deck — problem, architecture, results, demo outline</div>
+        </div>
+      </a>
+
+      <a class="doc-item" href="[YOUR GITHUB REPO LINK]/tree/main/config" target="_blank">
+        <div class="doc-icon">⚙️</div>
+        <div>
+          <div class="doc-title">System Configuration Files</div>
+          <div class="doc-desc">Looker Studio connector specs, field mapping, KPI formula definitions</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ TECH STACK ════════════════════ -->
   <div class="card">
     <h2>Technology Stack</h2>
-    <ul>
-      <li><strong>Google Looker Studio</strong> — Dashboard development platform (no-code, cloud-hosted)</li>
-      <li><strong>Google Analytics GA4</strong> — Web traffic data via OAuth 2.0</li>
-      <li><strong>Supermetrics</strong> — Facebook & Instagram Insights connector</li>
-      <li><strong>YouTube Analytics</strong> — Native Looker Studio connector</li>
-      <li><strong>GitHub</strong> — Version control with semantic versioning (v0.1.0 → v1.0.0)</li>
-      <li><strong>Google Cloud Secret Manager</strong> — Secure API credential storage</li>
-    </ul>
+    <div class="pills">
+      <span class="pill">Google Looker Studio</span>
+      <span class="pill">Google Analytics GA4</span>
+      <span class="pill">Meta Graph API</span>
+      <span class="pill">Instagram Insights</span>
+      <span class="pill">YouTube Analytics</span>
+      <span class="pill">Supermetrics</span>
+      <span class="pill">GitHub</span>
+      <span class="pill">Google Cloud Secret Manager</span>
+      <span class="pill">OAuth 2.0</span>
+      <span class="pill">GDPR Data Minimization</span>
+      <span class="pill">RBAC</span>
+      <span class="pill">TLS / HTTPS</span>
+    </div>
   </div>
 
-  <!-- Deliverables -->
-  <div class="card">
-    <h2>Project Deliverables</h2>
-    <ul>
-      <li>Live multi-platform dashboard with real organizational data</li>
-      <li>10,000+ word technical report (Chapters 1–6, APA referenced)</li>
-      <li>System architecture diagram and full module specifications</li>
-      <li>12-case test suite documentation with issue log</li>
-      <li>Post-deployment maintenance plan and risk register</li>
-      <li>Data ethics statement and user manual</li>
-      <li>GitHub repository with full version history and four release tags</li>
-    </ul>
-  </div>
-
-</div>
+</div><!-- end container -->
 
 <footer>
-  <p>Daniel Pierre &nbsp;|&nbsp; MSIT 5910 Capstone &nbsp;|&nbsp; University of the People &nbsp;|&nbsp; 2026</p>
+  <p>Daniel Pierre &nbsp;·&nbsp; MSIT 5910 Capstone &nbsp;·&nbsp; University of the People &nbsp;·&nbsp; 2026</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://github.com/Danieloner7/audience-analytics-dashboard" style="color:#9EC5E8;text-decoration:none;" target="_blank">GitHub Repository</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/danielpierre72/" style="color:#9EC5E8;text-decoration:none;" target="_blank">LinkedIn</a>
+    &nbsp;·&nbsp;
+    <a href="#" style="color:#9EC5E8;text-decoration:none;" target="_blank">Demo Video</a>
+  </p>
 </footer>
 
 </body>
